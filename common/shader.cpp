@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <vector>
 
 #include <GL/glew.h>
 #include "shader.h"
@@ -49,7 +50,7 @@ GLuint LoadShaders(const char *vertex_file_path, const char *fragment_file_path)
 
 	// Check if it compiled
 	glGetShaderiv(VertexShaderId, GL_COMPILE_STATUS, &Result);
-	glGetShaderiv(VertexShaderId, GL_INFO_LENGTH, &InfoLogLength);
+	glGetShaderiv(VertexShaderId, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if( InfoLogLength > 0 ){
 		std::vector<char> VertexShaderErrorMessage(InfoLogLength + 1);
 		glGetShaderInfoLog(VertexShaderId, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
@@ -64,7 +65,7 @@ GLuint LoadShaders(const char *vertex_file_path, const char *fragment_file_path)
 
 	// Check if it compiled
 	glGetShaderiv(VertexShaderId, GL_COMPILE_STATUS, &Result);
-	glGetShaderiv(VertexShaderId, GL_INFO_LENGTH, &InfoLogLength);
+	glGetShaderiv(VertexShaderId, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if( InfoLogLength > 0 ){
 		std::vector<char> FragmentShaderErrorMessage(InfoLogLength + 1);
 		glGetShaderInfoLog(FragmentShaderId, InfoLogLength, NULL, &FragmentShaderErrorMessage[0]);
