@@ -6,6 +6,7 @@
 #include <GL/glew.h> //GLExtensionWrangler
 #include <GLFW/glfw3.h> //
 #include <glm/glm.hpp>
+#include "../common/shader.h"
 
 using namespace glm;
 
@@ -42,6 +43,8 @@ int main(){
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
 
+	GLuint programId = LoadShaders("vshader.glsl", "fshader.glsl");
+
 	//triangle vertices
 	static const GLfloat g_vertex_buffer_data[] = {
 		-1.0f, -1.0f, 0.0f,
@@ -60,9 +63,10 @@ int main(){
 
 	do {
 		// Clear the screen
-		glClear( GL_COLOR_BUFFER_BIT );
+		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 		// Drawing code
 		// 1st attribute buffer : vertices
+		glUseProgram(programId);
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 		glVertexAttribPointer(
